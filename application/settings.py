@@ -144,11 +144,11 @@ REST_FRAMEWORK = {
 # Spectacular settings
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Django REST Template",
-    "DESCRIPTION": "Welcome to your Swagger documentation",
+    "TITLE": "ECommerce",
+    "DESCRIPTION": "Savannah Informatics Backend Developer Challenge",
     "VERSION": "1.0.0",
     "CONTACT":{
-        "name": "Application Owner",
-        "email": "example@email.com",
+        "name": "George Mobisa",
+        "email": "georgemobisa23@outlook.com",
     },
 }
