@@ -17,9 +17,10 @@ Including another URLconf
 
 from decouple import config
 from django.contrib import admin
-from django.urls import path,reverse
+from django.urls import path,reverse,include
 from django.http import HttpResponsePermanentRedirect
 from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView
+from customers.views import CurrentUser
 
 def home(request):
     return HttpResponsePermanentRedirect(reverse("swagger-ui"))
@@ -31,4 +32,8 @@ urlpatterns = [
     path(ADMIN_SITE_URL, admin.site.urls),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    # user endpoints
+    path("user/",CurrentUser.as_view(),name="current-user"),
+    # apps endpoint
+    path("users/",include("customers.urls")),
 ]
