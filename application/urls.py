@@ -38,6 +38,10 @@ urlpatterns = [
     path(f"{URL_HEADER}/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     # user endpoints
     path(f"{URL_HEADER}/user/",CurrentUser.as_view(),name="current-user"),
+    # password/reset/, password/reset/confirm/, password/reset/validate_token/
+    path(f"{URL_HEADER}/password/reset/", include('django_rest_passwordreset.urls', namespace='password_reset')),
+    # password/change/
+    path(f"{URL_HEADER}/", include("dj_rest_auth.urls")),
     # account-confirm-email/
     re_path(f"{URL_HEADER}/registration/account-confirm-email/(?P<key>[-:\w]+)/$", ConfirmEmailView.as_view(),name='account_confirm_email'),
     # registration/ verify-email/ resend-email/ account-email-verification-sent/

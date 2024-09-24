@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    # password reset
+    'django_rest_passwordreset',
     # apps
     'customers.apps.CustomersConfig',
     'pocket',
@@ -156,6 +158,11 @@ REST_FRAMEWORK = {
 
 
 # DJ-REST-AUTH SETTINGS
+
+REST_AUTH = {
+    'OLD_PASSWORD_FIELD_ENABLED': True, # old password is required during password change
+    'LOGOUT_ON_PASSWORD_CHANGE': True, # forcefully logged out after password change
+}
 
 SITE_ID = 1
 
