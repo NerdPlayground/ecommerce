@@ -25,6 +25,7 @@ from customers.views import CurrentUser
 def home(request):
     return HttpResponsePermanentRedirect(reverse("swagger-ui"))
 
+admin.site.site_header="Ecommerce API Administration"
 ADMIN_SITE_URL="{}/".format(config('ADMIN_SITE_URL'))
 
 urlpatterns = [
