@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 from decouple import config
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -50,6 +51,8 @@ INSTALLED_APPS = [
     'dj_rest_auth.registration',
     # password reset
     'django_rest_passwordreset',
+    # login and logout
+    'knox',
     # apps
     'customers.apps.CustomersConfig',
     'pocket',
@@ -154,6 +157,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_AUTHENTICATION_CLASSES" : ["knox.auth.TokenAuthentication",],
+}
+
+
+# KNOX SETTINGS
+
+REST_KNOX = {
+    "TOKEN_TTL": timedelta(days=1),
+    "AUTH_HEADER_PREFIX": "Bearer",
 }
 
 

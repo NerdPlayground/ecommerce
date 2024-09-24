@@ -21,8 +21,8 @@ from django.urls import path,reverse,include
 from django.urls.conf import re_path
 from allauth.account.views import ConfirmEmailView
 from django.http import HttpResponsePermanentRedirect
+from customers.views import CurrentUser,LoginView,LogoutView,LogoutAllView
 from drf_spectacular.views import SpectacularAPIView,SpectacularSwaggerView
-from customers.views import CurrentUser
 
 def home(request):
     return HttpResponsePermanentRedirect(reverse("swagger-ui"))
@@ -37,7 +37,10 @@ urlpatterns = [
     path(f"{URL_HEADER}/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(f"{URL_HEADER}/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     # user endpoints
-    path(f"{URL_HEADER}/user/",CurrentUser.as_view(),name="current-user"),
+    path(f"{URL_HEADER}/user/", CurrentUser.as_view(), name="current-user"),
+    path(f"{URL_HEADER}/login/", LoginView.as_view(), name='knox_login'),
+    path(f"{URL_HEADER}/logout/", LogoutView.as_view(), name='knox_logout'),
+    path(f"{URL_HEADER}/logout/all/", LogoutAllView.as_view(), name='knox_logout_all'),
     # password/reset/, password/reset/confirm/, password/reset/validate_token/
     path(f"{URL_HEADER}/password/reset/", include('django_rest_passwordreset.urls', namespace='password_reset')),
     # password/change/

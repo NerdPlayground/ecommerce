@@ -1,6 +1,13 @@
-from .serializers import UserSerializer
-from django.contrib.auth import get_user_model
+from django.contrib.auth import login,get_user_model
+from drf_spectacular.utils import extend_schema
 from rest_framework import generics,permissions
+from .serializers import UserSerializer,LoginSerializer
+from rest_framework.authtoken.serializers import AuthTokenSerializer
+from knox.views import (
+    LoginView as KnoxLoginView,
+    LogoutView as KnoxLogoutView,
+    LogoutAllView as KnoxLogoutAllView,
+)
 
 class UserList(generics.ListAPIView):
     queryset=get_user_model().objects.all()
@@ -48,3 +55,41 @@ class CurrentUser(generics.RetrieveUpdateDestroyAPIView):
 
     def get_object(self):
         return self.request.user
+
+class LoginView(KnoxLoginView):
+    permission_classes=[permissions.AllowAny]
+    
+    @extend_schema(
+        responses=None,
+        request=LoginSerializer,
+    )
+    def post(self, request, format=None):
+        """
+        Authenticates user and returns a token. 
+        The token is valid for 24 hours
+        """
+        serializer = AuthTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        login(request, user)
+        return super(LoginView, self).post(request, format=None)
+
+class LogoutView(KnoxLogoutView):
+    @extend_schema(
+        request=None,
+        responses=None,
+    )
+    def post(self, request, format=None):
+        """
+        Logs out user from current client session and  
+        invalidates the token supplied during authentication
+        """
+        return super().post(request,format)
+
+class LogoutAllView(KnoxLogoutAllView):
+    @extend_schema(
+        request=None,
+        responses=None,
+    )
+    def post(self, request, format=None):
+        return super().post(request,format)
