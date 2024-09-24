@@ -40,6 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_spectacular',
+    # authentication
+    'django.contrib.sites',
+    'rest_framework.authtoken',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
+    # apps
     'customers.apps.CustomersConfig',
     'pocket',
 ]
@@ -52,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'application.urls'
@@ -59,7 +69,9 @@ ROOT_URLCONF = 'application.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR/'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -140,6 +152,42 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+
+# DJ-REST-AUTH SETTINGS
+
+SITE_ID = 1
+
+
+# ALLAUTH SETTINGS
+
+AUTHENTICATION_BACKENDS = [
+   'django.contrib.auth.backends.ModelBackend', # Needed to login by username in Django admin, regardless of `allauth`
+   'allauth.account.auth_backends.AuthenticationBackend', # `allauth` specific authentication methods, such as login by email
+]
+
+
+# AUTHENTICATION AND VERIFICATION
+
+ACCOUNT_EMAIL_REQUIRED = True
+
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+ACCOUNT_ADAPTER = 'pocket.views.EcommerceAPIAccountAdapter'
+
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+
+
+# EMAIL CONFIGURATION
+
+EMAIL_BACKEND = "anymail.backends.mailjet.EmailBackend"
+
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+
+ANYMAIL = {
+    "MAILJET_API_KEY":config("MAILJET_API_KEY"),
+    "MAILJET_SECRET_KEY":config("MAILJET_SECRET_KEY"),
 }
 
 
