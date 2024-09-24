@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_spectacular',
     'customers.apps.CustomersConfig',
+    'pocket',
 ]
 
 MIDDLEWARE = [
