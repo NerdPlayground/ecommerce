@@ -27,14 +27,15 @@ def home(request):
 
 admin.site.site_header="Ecommerce API Administration"
 ADMIN_SITE_URL="{}/".format(config('ADMIN_SITE_URL'))
+URL_HEADER="ecommerce-api/v1"
 
 urlpatterns = [
     path("", home, name="home"),
     path(ADMIN_SITE_URL, admin.site.urls),
-    path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
-    path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
+    path(f"{URL_HEADER}/schema/", SpectacularAPIView.as_view(), name="schema"),
+    path(f"{URL_HEADER}/schema/swagger-ui/", SpectacularSwaggerView.as_view(url_name="schema"), name="swagger-ui"),
     # user endpoints
-    path("user/",CurrentUser.as_view(),name="current-user"),
+    path(f"{URL_HEADER}/user/",CurrentUser.as_view(),name="current-user"),
     # apps endpoint
-    path("users/",include("customers.urls")),
+    path(f"{URL_HEADER}/users/",include("customers.urls")),
 ]
