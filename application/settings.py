@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'customers.apps.CustomersConfig',
     'pocket',
     'products',
+    'orders',
 ]
 
 MIDDLEWARE = [
