@@ -52,4 +52,5 @@ urlpatterns = [
     # apps endpoint
     path(f"{URL_HEADER}/users/",include("customers.urls")),
     path(f"{URL_HEADER}/products/",include("products.urls")),
+    path(f"{URL_HEADER}/orders/",include("orders.urls")),
 ]
