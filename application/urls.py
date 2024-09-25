@@ -51,4 +51,5 @@ urlpatterns = [
     path(f"{URL_HEADER}/registration/",include("dj_rest_auth.registration.urls")),
     # apps endpoint
     path(f"{URL_HEADER}/users/",include("customers.urls")),
+    path(f"{URL_HEADER}/products/",include("products.urls")),
 ]
