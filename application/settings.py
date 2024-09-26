@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import africastalking
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
@@ -223,3 +224,15 @@ SPECTACULAR_SETTINGS = {
         "email": "georgemobisa23@outlook.com",
     },
 }
+
+
+# Africa's Talking
+
+africastalking.initialize(
+    api_key = config("AT_API_KEY"),
+    username = config("AT_USERNAME"),
+)
+
+SMS = africastalking.SMS
+
+AT_SENDER = config("AT_SENDER")
