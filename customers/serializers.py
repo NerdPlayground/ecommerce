@@ -19,13 +19,20 @@ class UserSerializer(serializers.ModelSerializer):
         fields=["username","first_name","last_name","email","customer"]
     
     def update(self,instance,validated_data):
-        customer=Customer.objects.get(user=instance)
-        customer_data=validated_data.pop("customer")
-        customer.phone_number=customer_data["phone_number"]
-        customer.save()
+        if validated_data.get("customer",None):
+            customer=Customer.objects.get(user=instance)
+            customer_data=validated_data["customer"]
+            customer.phone_number=customer_data["phone_number"]
+            customer.save()
 
-        instance.username=validated_data["username"]
-        instance.first_name=validated_data["first_name"]
-        instance.last_name=validated_data["last_name"]
-        instance.email=validated_data["email"]
+        if validated_data.get("username",None):
+            instance.username=validated_data["username"]
+        if validated_data.get("first_name",None):
+            instance.first_name=validated_data["first_name"]
+        if validated_data.get("last_name",None):
+            instance.last_name=validated_data["last_name"]
+        if validated_data.get("email",None):
+            instance.email=validated_data["email"]
+        
         instance.save()
+        return instance
