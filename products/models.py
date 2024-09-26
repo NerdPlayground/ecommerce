@@ -17,3 +17,6 @@ class Product(models.Model):
     def get_absolute_url(self):
         from django.urls import reverse
         return reverse("product-detail",kwargs={"pk":self.id})
+    
+    class Meta:
+        ordering=["-created_on"]

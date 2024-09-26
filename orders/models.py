@@ -23,3 +23,6 @@ class Order(models.Model):
 
     def __str__(self):
         return f"Order by {self.customer}"
+    
+    class Meta:
+        ordering=["-created_on"]
