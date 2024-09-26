@@ -38,5 +38,8 @@ jobs:
         DEFAULT_FROM_EMAIL: ${{secrets.DEFAULT_FROM_EMAIL}}
         MAILJET_API_KEY: ${{secrets.MAILJET_API_KEY}}
         MAILJET_SECRET_KEY: ${{secrets.MAILJET_SECRET_KEY}}
+        AT_USERNAME: ${{secrets.AT_USERNAME}}
+        AT_SENDER: ${{secrets.AT_SENDER}}
+        AT_API_KEY: ${{secrets.AT_API_KEY}}
       run: |
         coverage run manage.py test && coverage report
