@@ -41,5 +41,6 @@ jobs:
         AT_USERNAME: ${{secrets.AT_USERNAME}}
         AT_SENDER: ${{secrets.AT_SENDER}}
         AT_API_KEY: ${{secrets.AT_API_KEY}}
+        AT_PHONE_NUMBER: ${{secrets.AT_PHONE_NUMBER}}
       run: |
         coverage run manage.py test && coverage report
