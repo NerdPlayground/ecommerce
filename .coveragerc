@@ -7,6 +7,5 @@ omit=
     */__init__.py
 
 [report]
-skip_covered=True
 skip_empty=True
 sort=miss
