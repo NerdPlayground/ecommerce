@@ -16,6 +16,7 @@ Including another URLconf
 """
 
 from decouple import config
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path,reverse,include
 from django.urls.conf import re_path
@@ -29,7 +30,8 @@ def home(request):
 
 admin.site.site_header="Ecommerce API Administration"
 ADMIN_SITE_URL="{}/".format(config('ADMIN_SITE_URL'))
-URL_HEADER="ecommerce-api/v1"
+VERSION=settings.VERSION.split('.')[0]
+URL_HEADER=f"ecommerce-api/v{VERSION}"
 
 urlpatterns = [
     path("", home, name="home"),

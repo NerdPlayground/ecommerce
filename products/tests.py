@@ -66,36 +66,36 @@ class ProductTestCase(PocketTestCase):
             content_type="application/json",
             data=data,
         )
-        return (response,data)
+        return response,data,product
     
     def test_admin_update_product(self):
-        response,data=self.update_product(self.admin)
+        response,data,product=self.update_product(self.admin)
         self.assertEqual(response.status_code,200)
 
-        updated=response.json()
-        self.assertEqual(updated.get("name"),data.get("name"))
-        self.assertEqual(updated.get("price"),data.get("price"))
+        product.refresh_from_db()
+        self.assertEqual(product.name,data.get("name"))
+        self.assertEqual(product.price,data.get("price"))
     
     def test_member_update_product(self):
-        response,data=self.update_product(self.member)
+        response,data,product=self.update_product(self.member)
         self.assertEqual(response.status_code,403)
     
     def delete_product(self,actor):
-        products=Product.objects.count()
+        count=Product.objects.count()
         product=random.choice(self.products)
         token=self.member_login(actor)
         response=self.client.delete(
             path=reverse("modify-product",kwargs={"pk":product.id}),
             headers={"Authorization": f"Bearer {token}"}
         )
-        return response,products
+        return response,count
     
     def test_admin_delete_product(self):
-        response,products=self.delete_product(self.admin)
+        response,count=self.delete_product(self.admin)
         self.assertEqual(response.status_code,204)
-        self.assertEqual(Product.objects.count(),products-1)
+        self.assertEqual(Product.objects.count(),count-1)
     
     def test_member_delete_product(self):
-        response,products=self.delete_product(self.member)
+        response,count=self.delete_product(self.member)
         self.assertEqual(response.status_code,403)
-        self.assertEqual(Product.objects.count(),products)
+        self.assertEqual(Product.objects.count(),count)

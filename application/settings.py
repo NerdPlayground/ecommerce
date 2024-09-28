@@ -29,7 +29,17 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production! 
 DEBUG = config('DEBUG',True,cast=bool)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "ecommerce-aw0i.onrender.com",
+]
+
+
+# External API Interaction
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://ecommerce-aw0i.onrender.com",
+]
 
 
 # Application definition
@@ -71,6 +81,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'application.urls'
@@ -148,6 +159,13 @@ STATIC_ROOT= BASE_DIR/'staticfiles'
 
 STATICFILES_DIRS= [BASE_DIR/'static']
 
+
+# Simplified static file serving.
+# https://pypi.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -213,10 +231,30 @@ ANYMAIL = {
 
 # Spectacular settings
 
+VERSION = "1.0.0"
+
 SPECTACULAR_SETTINGS = {
-    "TITLE": "ECommerce",
-    "DESCRIPTION": "Savannah Informatics Backend Developer Challenge",
-    "VERSION": "1.0.0",
+    "TITLE": "ECOMMERCE API",
+    "DESCRIPTION": "<p>An interface for both your ecommerce store and store manager. \
+        The store manager allows you to perform read and write operations<br/>\
+        to keep your information up-to-date, allowing your ecommerce store to display all \
+        your relevant information.</p>\
+        <h2>Let's Get Started</h2>\
+        <ol>\
+        <li>Register your account with an official email</li>\
+        <li>Check your inbox to verify your email</li>\
+        <li>Login with your valid credentials</li>\
+        <li>In the authorize tab, submit the token supplied after logging in</li>\
+        </ol>\
+        <p>Once you are finished, logout from the Logout endpoint to invalidate the token,\
+        then logout from the Authorize tab to discard the token from the swagger ui.<br/>\
+        Simply logging out from the Authorize tab doesn't invalidate the token and it can\
+        still be used to access your information</p>\
+        <p><strong>NOTE:</strong> Swagger doesn't persist authorization details on page reload.\
+        Therefore, save your token to resubmit it in case you accidentally reload the page.<br/>\
+        Also, when you are logging in, ensure the Authorization tab doesn't have an existing token. \
+        Otherwise, you'll get an invalid token error.</p>",
+    "VERSION": VERSION,
     "CONTACT":{
         "name": "George Mobisa",
         "email": "georgemobisa23@outlook.com",
