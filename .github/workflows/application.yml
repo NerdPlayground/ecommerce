@@ -30,16 +30,13 @@ jobs:
         SECRET_KEY: ${{secrets.SECRET_KEY}}
         ADMIN_SITE_URL: ${{secrets.ADMIN_SITE_URL}}
         DEBUG: ${{secrets.DEBUG}}
-        USER: ${{secrets.USER}}
-        PASSWORD: ${{secrets.PASSWORD}}
-        HOST: ${{secrets.HOST}}
-        PORT: ${{secrets.PORT}}
-        NAME: ${{secrets.NAME}}
+        DATABASE_URL: ${{secrets.DATABASE_URL}}
         DEFAULT_FROM_EMAIL: ${{secrets.DEFAULT_FROM_EMAIL}}
         MAILJET_API_KEY: ${{secrets.MAILJET_API_KEY}}
         MAILJET_SECRET_KEY: ${{secrets.MAILJET_SECRET_KEY}}
         AT_USERNAME: ${{secrets.AT_USERNAME}}
         AT_SENDER: ${{secrets.AT_SENDER}}
         AT_API_KEY: ${{secrets.AT_API_KEY}}
+        AT_PHONE_NUMBER: ${{secrets.AT_PHONE_NUMBER}}
       run: |
         coverage run manage.py test && coverage report
