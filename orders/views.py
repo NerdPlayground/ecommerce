@@ -18,6 +18,7 @@ class Deliver(generics.UpdateAPIView):
         return super().patch(request, *args, **kwargs)
 
 class Orders(generics.ListAPIView):
+    queryset=Order.objects.all()
     serializer_class=OrderSerializer
     permission_classes=[permissions.IsAdminUser]
     
