@@ -71,6 +71,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'application.urls'
@@ -147,6 +148,13 @@ STATIC_URL = 'static/'
 STATIC_ROOT= BASE_DIR/'staticfiles'
 
 STATICFILES_DIRS= [BASE_DIR/'static']
+
+
+# Simplified static file serving.
+# https://pypi.org/project/whitenoise/
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
