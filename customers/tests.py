@@ -66,7 +66,7 @@ class CustomerTestCase(PocketTestCase):
         self.assertEqual(customer.phone_number,details.get("customer").get("phone_number"))
     
     def test_member_delete_account(self):
-        token=self.member_login(self.member)
+        token=self.member_login(self.dummy)
         total_members=Customer.objects.count()
         response=self.client.delete(
             path=reverse("current-user"),
